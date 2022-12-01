@@ -1,0 +1,12 @@
+
+server:
+  application:
+    name: Resilience
+  port: 8081
+
+resilience4j:
+  retry:
+    instances:
+      default:
+        max-attempts: 3
+        wait-duration: 1s
