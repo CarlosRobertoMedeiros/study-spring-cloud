@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  
+  #DataBase 1
+  postgres_calendario:
+    container_name: postgres_calendario_service
+    image: postgres:12.2
+    environment:
+      DATABASE_HOST: localhost
+      POSTGRES_DB: calendario_service
+      POSTGRES_USER: calendario
+      POSTGRES_PASSWORD: calendario
+    volumes:
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped      
+    networks:
+      - stack1-network
+    
+
+networks:
+  stack1-network:
+    driver: bridge  
+    
+    
+ 

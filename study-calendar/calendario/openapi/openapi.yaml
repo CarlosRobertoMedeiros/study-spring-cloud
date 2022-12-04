@@ -1,0 +1,255 @@
+openapi: 3.0.3
+
+info:
+  title: AlgaCalendar
+  description: REST API de lembretes
+  version: 1.0.0
+  
+paths:
+  /reminders:
+    get:
+      operationId: getReminders
+      description: Consulta Lembretes
+      tags:
+        - Reminders
+      parameters:
+        - schema:
+            type: string
+            example: "Reunião Semanal"
+          name: title
+          description: "Titulo"
+          in: query
+          required: false
+      
+      responses:
+        '200':
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/ReminderSummary'
+    
+    post:
+      operationId: createReminders
+      description: Cria um novo Lembrete
+      tags:
+        - Reminders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReminderInput' 
+      responses:
+        '201':
+          description: "Lembrete Criado"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReminderDetail'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  
+  /reminders/{reminderId}:
+    parameters:
+      - schema:
+          type: integer
+          format: int64
+        name: reminderId
+        in: path
+        required: true
+    get:
+      operationId: getReminderById
+      description: Consulta Lembrete por Id
+      tags:
+        - Reminders
+      
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReminderDetail'
+        '404':
+           $ref: '#/components/responses/NotFound'
+          
+    put:
+      operationId: updateReminder
+      description: Atualiza o Lembrete
+      tags:
+        - Reminders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReminderInput' 
+      
+      responses:
+        '204':
+          description: 'Lembrete Atualizado'
+        '400':
+           $ref: '#/components/responses/BadRequest'
+        '404':
+           $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    
+    delete:
+      operationId: removeReminder
+      description: Remove um Lembrete
+      tags:
+        - Reminders
+      
+      responses:
+        '204':
+          description: 'Lembrete Removido'
+        '404':
+           $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+
+tags:
+  - name: Reminders
+    description: Lembretes
+
+security: 
+  - ApiKey: []
+  
+servers:
+  - description: 'Ambiente de Produção'
+    url: 'https://calendario.roberto.com'
+  - description: 'Ambiente local de Desenvolvimento'
+    url: 'http://localhost:8080'
+  
+    
+components:
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      name: X-Authorization
+      in: header
+      description: 'Token de autenticação'
+  responses:
+    NotFound:
+      description: 'Recurso não encontrado'
+      content:
+        application/json:
+          schema: 
+            $ref: '#/components/schemas/ErrorMessage'
+    BadRequest:
+      description: 'Requisição Inválida'
+      content:
+        application/json:
+          schema: 
+            $ref: '#/components/schemas/ErrorMessage'
+    InternalServerError:
+      description: 'Erro Interno no Servidor'
+      content:
+        application/json:
+          schema: 
+            $ref: '#/components/schemas/ErrorMessage'
+  
+  schemas:
+    ReminderDetail:
+      description: 'Lembrete detalhado'
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - date
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        title:
+          type: string
+          example: 'Reunião Semanal'
+        description:
+          type: string
+          example: 'Reunião Semanal com o Time'
+        date:
+          type: string
+          format: date
+          example: '2022-01-01'
+    
+    ReminderSummary:
+      description: 'Lembrete Resumido'
+      type: object
+      required:
+        - id
+        - title
+        - date
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        title:
+          type: string
+          example: 'Reunião Semanal'
+        date:
+          type: string
+          format: date
+          example: '2022-01-01'
+          
+    ReminderInput:
+      description: 'Modelo para criação ou alteração de um lembrete'
+      type: object
+      required:
+        - title
+        - description
+        - date
+      properties:
+        title:
+          type: string
+          example: 'Reunião Semanal'
+        description:
+          type: string
+          example: 'Reunião Semanal com o Time'
+        date:
+          type: string
+          format: date
+          example: '2022-01-01'
+    
+    ErrorMessage:
+      description: 'Representa um modelo de erro na requisição'
+      type: object
+      required:
+        - status
+        - timestamp
+        - error
+        - message
+        - path
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        timestamp:
+          type: string
+          format: date-time
+          example: '2022-11-01-T18:09:02Z'
+        error:
+          type: string
+          example: 'Dados inválidos'
+        message:
+          type: string
+          example: 'Um ou mais campos estão inválidos'
+        path:
+          type: string
+          example: '/path'
+          
+      
+          
+      
+      
+      
+          

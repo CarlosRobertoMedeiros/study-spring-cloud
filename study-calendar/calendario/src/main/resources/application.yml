@@ -1,0 +1,17 @@
+spring:
+  application:
+      name: Calendario-Service
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/calendario_service
+    username: calendario
+    password: calendario
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
