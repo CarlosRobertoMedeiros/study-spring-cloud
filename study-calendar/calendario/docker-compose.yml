@@ -2,6 +2,24 @@ version: "3.7"
 
 services:
   
+  #KeyCloak(SSO)
+  #link: localhost:8085
+  keycloak-authorization-server:
+    container_name: keycloak-authorization-server
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    environment:
+      - KEYCLOAK_USER=${KEYCLOAK_USER}
+      - KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}
+      - KEYCLOAK_ADMIN=${KEYCLOAK_USER} 
+      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_PASSWORD}
+    ports:
+      - 8085:8080
+    command:
+      - start-dev
+    networks:
+      - stack1-network
+  
+  
   #DataBase 1
   postgres_calendario:
     container_name: postgres_calendario_service

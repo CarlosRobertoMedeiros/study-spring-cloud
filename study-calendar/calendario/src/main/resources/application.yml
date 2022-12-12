@@ -1,6 +1,6 @@
 spring:
   application:
-      name: Calendario-Service
+    name: Calendario-Service
 
   datasource:
     driver-class-name: org.postgresql.Driver
