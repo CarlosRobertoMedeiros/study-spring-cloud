@@ -1,17 +1,24 @@
-resilience4j.circuitbreaker:
-  instances:
-    avaliacoesCB:
-      #registerHealthIndicator: true
-      wait-duration-in-open-sate: 30s
-      permitted-number-of-calls-in-half-open-state: 3
-      minimum-number-of-calls: 3
-      sliding-window-size: 6
+feign:
+  circuitbreaker:
+    enabled: true
+    alphanumeric-ids:
+      enabled: true
 
-resilience4j.retry:
-  instances:
-    avaliacoesCB:
-      maxAttempts: 3
-      waitDuration: 2s
+resilience4j:
+  circuitbreaker:
+    instances:
+      avaliacoesCB:
+      #registerHealthIndicator: true
+        wait-duration-in-open-sate: 30s
+        permitted-number-of-calls-in-half-open-state: 3
+        minimum-number-of-calls: 3
+        sliding-window-size: 6
+
+  retry:
+    instances:
+      avaliacoesCB:
+        maxAttempts: 3
+        waitDuration: 2s
 #      retryExceptions:
 #        - org.springframework.web.client.HttpServerErrorException
 #        - java.io.IOException

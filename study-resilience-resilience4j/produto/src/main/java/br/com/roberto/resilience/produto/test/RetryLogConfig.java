@@ -14,7 +14,6 @@ import org.springframework.core.annotation.Order;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Configuration
-@Order(1000)
 public class RetryLogConfig {
 
     private final Logger logger = LoggerFactory.getLogger(RetryLogConfig.class);

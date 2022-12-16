@@ -1,7 +1,7 @@
 package br.com.roberto.resilience.produto.rest;
 
-import br.com.roberto.resilience.produto.client.AvaliacaoClient;
 import br.com.roberto.resilience.produto.client.AvaliacaoResponse;
+import br.com.roberto.resilience.produto.client.FeignAvaliacaoClient;
 import br.com.roberto.resilience.produto.domain.entity.Produto;
 import br.com.roberto.resilience.produto.domain.repository.ProdutoRepository;
 import br.com.roberto.resilience.produto.rest.dto.ProdutoResponse;
@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 public class ProdutoRest {
 
     private final ProdutoRepository produtoRepository;
-    private final AvaliacaoClient avaliacaoClient;
+    private final FeignAvaliacaoClient avaliacaoClient;
 
-    public ProdutoRest(ProdutoRepository produtoRepository, AvaliacaoClient avaliacaoClient) {
+    public ProdutoRest(ProdutoRepository produtoRepository, FeignAvaliacaoClient avaliacaoClient) {
         this.produtoRepository = produtoRepository;
         this.avaliacaoClient = avaliacaoClient;
     }
@@ -49,8 +49,8 @@ public class ProdutoRest {
         return ProdutoResponse.of(produto, buscarAvaliacaoDoProduto(produto.getId()));
     }
 
-    private List<AvaliacaoResponse> buscarAvaliacaoDoProduto(Long productId) {
-        return avaliacaoClient.buscarTodosPorProduto(productId);
+    private List<AvaliacaoResponse> buscarAvaliacaoDoProduto(Long produtoId) {
+        return avaliacaoClient.buscarTodosPorProduto(produtoId);
     }
 
 
