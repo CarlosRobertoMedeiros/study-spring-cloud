@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "e58b9d5e-3129-4015-9927-9fa3a3afd52b",
+		"name": "IDS - KeyCloak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AuthorizationCodeFlow",
+			"item": [
+				{
+					"name": "getCodeParaToken(ViaBrowser)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);\r",
+									"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlIds}}/realms/{{realm}}/protocol/openid-connect/auth?response_type=code&client_id=elastic-query-web-client&redirect_uri=http://localhost:8081/produtos",
+							"host": [
+								"{{baseUrlIds}}"
+							],
+							"path": [
+								"realms",
+								"{{realm}}",
+								"protocol",
+								"openid-connect",
+								"auth"
+							],
+							"query": [
+								{
+									"key": "response_type",
+									"value": "code"
+								},
+								{
+									"key": "client_id",
+									"value": "elastic-query-web-client"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://localhost:8081/produtos"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getToken-AuthorizationCode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);\r",
+									"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "code",
+									"value": "f1eb7f86-857f-4711-976c-a23577618cf4.f057ca85-449d-4a2e-93e8-9cd624d346a3.c634312f-32de-4dd8-ba03-1c5c234e27b9",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "elastic-query-web-client",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "VOaDzlgYC1uUuvcAoL4RwWGuc0JVUsmK",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "authorization_code",
+									"type": "text"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://localhost:8081/produtos",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrlIds}}/realms/{{realm}}/protocol/openid-connect/token",
+							"host": [
+								"{{baseUrlIds}}"
+							],
+							"path": [
+								"realms",
+								"{{realm}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ImplicitCodeFlow",
+			"item": [
+				{
+					"name": "getCodeParaToken(ViaBrowser)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);\r",
+									"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrlIds}}/realms/{{realm}}/protocol/openid-connect/auth?response_type=token&client_id=elastic-query-web-client&redirect_uri=http://localhost:8081/produtos",
+							"host": [
+								"{{baseUrlIds}}"
+							],
+							"path": [
+								"realms",
+								"{{realm}}",
+								"protocol",
+								"openid-connect",
+								"auth"
+							],
+							"query": [
+								{
+									"key": "response_type",
+									"value": "token"
+								},
+								{
+									"key": "client_id",
+									"value": "elastic-query-web-client"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "http://localhost:8081/produtos"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ClientCredentialsFlow",
+			"item": [
+				{
+					"name": "getToken-clientCredentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);\r",
+									"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "elastic-query-web-client",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "VOaDzlgYC1uUuvcAoL4RwWGuc0JVUsmK",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "senha123",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrlIds}}/realms/{{realm}}/protocol/openid-connect/token",
+							"host": [
+								"{{baseUrlIds}}"
+							],
+							"path": [
+								"realms",
+								"{{realm}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PasswordFlowOrImplicitPassword",
+			"item": [
+				{
+					"name": "getToken-PasswordFlow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);\r",
+									"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "app_user",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "default"
+								},
+								{
+									"key": "client_id",
+									"value": "elastic-query-web-client",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "VOaDzlgYC1uUuvcAoL4RwWGuc0JVUsmK",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrlIds}}/realms/{{realm}}/protocol/openid-connect/token",
+							"host": [
+								"{{baseUrlIds}}"
+							],
+							"path": [
+								"realms",
+								"{{realm}}",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getAllOpenIDConnect",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrlIds}}/realms/{{realm}}/.well-known/openid-configuration",
+					"host": [
+						"{{baseUrlIds}}"
+					],
+					"path": [
+						"realms",
+						"{{realm}}",
+						".well-known",
+						"openid-configuration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUserInfo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{baseUrlIds}}/realms/{{realm}}/protocol/openid-connect/userinfo",
+					"host": [
+						"{{baseUrlIds}}"
+					],
+					"path": [
+						"realms",
+						"{{realm}}",
+						"protocol",
+						"openid-connect",
+						"userinfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getIntrospectToken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "default"
+						},
+						{
+							"key": "client_id",
+							"value": "elastic-query-web-client",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "VOaDzlgYC1uUuvcAoL4RwWGuc0JVUsmK",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrlIds}}/realms/{{realm}}/protocol/openid-connect/token/introspect",
+					"host": [
+						"{{baseUrlIds}}"
+					],
+					"path": [
+						"realms",
+						"{{realm}}",
+						"protocol",
+						"openid-connect",
+						"token",
+						"introspect"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
