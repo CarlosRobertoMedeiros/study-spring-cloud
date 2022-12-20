@@ -4,9 +4,9 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/calendario_service
-    username: calendario
-    password: calendario
+    url: jdbc:postgresql://localhost:5437/calendario_service
+    username: calendario_user
+    password: calendario_password
 
   jpa:
     hibernate:
@@ -15,3 +15,23 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8085/realms/realm_teste/protocol/openid-connect/certs
+#    security:
+#      oauth2:
+#        resourceserver:
+#          jwt:
+#            issuer-uri: http://localhost:8085/realms/realm_teste
+#            set-uri: http://localhost:8085/realms/realm_teste/protocol/openid-connect/certs
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
