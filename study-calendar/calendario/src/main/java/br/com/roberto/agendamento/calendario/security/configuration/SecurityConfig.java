@@ -1,51 +1,32 @@
 package br.com.roberto.agendamento.calendario.security.configuration;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
+import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
+import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
+import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
-public class ResourceServerConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
-    String jwkSetUri;
+    //private final UserConfigData userConfigData;
+    //Continuar a Implementação após a conclusão do Curso da Udemy
 
-    @Bean
-    public SecurityFilterChain resourceServerFilterChain(HttpSecurity http) throws Exception {
-        // @formatter:off
-//        http
-//                .authorizeHttpRequests((authorize) -> authorize
-//                        .antMatchers(HttpMethod.GET, "/reminders/**").hasAuthority("SCOPE_message:email")
-//                        .antMatchers(HttpMethod.POST, "/reminders/**").hasAuthority("SCOPE_message:email")
-//                        .anyRequest().authenticated()
-//                )
-//                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
-        // @formatter:on
 
-        http.authorizeRequests()
-                //.antMatchers("/oauth2/**").authenticated()
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable()
-                .cors()
-                .and()
-                .oauth2ResourceServer().jwt();
-
-        return http.build();
-    }
-
-    @Bean
-    JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).build();
-    }
 
 
 }

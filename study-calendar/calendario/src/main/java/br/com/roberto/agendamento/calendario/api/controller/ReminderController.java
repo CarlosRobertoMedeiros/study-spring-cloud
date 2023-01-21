@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +40,7 @@ public class ReminderController {
     }
 
     @GetMapping("{reminderId}")
+    @RolesAllowed("app_admin_role")
     public ReminderDetail getOne(@PathVariable Long reminderId) {
         Reminder reminder = findOrFail(reminderId);
         return ReminderDetail.of(reminder);

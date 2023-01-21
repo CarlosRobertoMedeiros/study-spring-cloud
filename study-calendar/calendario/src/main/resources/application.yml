@@ -16,19 +16,20 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-
-
   security:
     oauth2:
       resourceserver:
         jwt:
+          issuer-uri: http://localhost:8085/realms/realm_teste
           jwk-set-uri: http://localhost:8085/realms/realm_teste/protocol/openid-connect/certs
-#    security:
-#      oauth2:
-#        resourceserver:
-#          jwt:
-#            issuer-uri: http://localhost:8085/realms/realm_teste
-#            set-uri: http://localhost:8085/realms/realm_teste/protocol/openid-connect/certs
+
+#keycloak:
+#  realm: realm_teste
+#  auth-server-url: http://localhost:8085/auth
+#  resource: elastic-query-web-client
+#  public-client: false
+#  bearer-only: true
+
 
 logging:
   level:
