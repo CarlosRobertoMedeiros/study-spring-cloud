@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: api-camunda
+
+  datasource:
+    hikari:
+      pool-name: custom-pool-name     # optional
+
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: "health,metrics,prometheus"
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+
+camunda.bpm.admin-user:
+  id: admin
+  password: admin
